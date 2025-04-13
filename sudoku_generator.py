@@ -7,10 +7,18 @@ https://www.geeksforgeeks.org/program-sudoku-generator/
 """
 
 class SudokuGenerator:
-    def __init__(self, row_length = 9, removed_cells)
+    def __init__(self, row_length, removed_cells):
         self.row_length = row_length
         self.removed_cells = removed_cells
-        self.board = board
+        self.board = [[0,0,0,0,0,0,0,0,0],
+                      [0,0,0,0,0,0,0,0,0],
+                      [0,0,0,0,0,0,0,0,0],
+                      [0,0,0,0,0,0,0,0,0],
+                      [0,0,0,0,0,0,0,0,0],
+                      [0,0,0,0,0,0,0,0,0],
+                      [0,0,0,0,0,0,0,0,0],
+                      [0,0,0,0,0,0,0,0,0],
+                      [0,0,0,0,0,0,0,0,0]]
         self.box_length = math.sqrt(row_length)
 
     '''
@@ -68,7 +76,7 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_row(self, row, num):
-                if row == 0:
+        if row == 0:
             for item in range(0,9):
                 if self.board[item] == num:
                     return False
