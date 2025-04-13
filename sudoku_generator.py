@@ -10,16 +10,17 @@ class SudokuGenerator:
     def __init__(self, row_length, removed_cells):
         self.row_length = row_length
         self.removed_cells = removed_cells
-        self.board = [[0,0,0,0,0,0,0,0,0],
-                      [0,0,0,0,0,0,0,0,0],
-                      [0,0,0,0,0,0,0,0,0],
-                      [0,0,0,0,0,0,0,0,0],
-                      [0,0,0,0,0,0,0,0,0],
-                      [0,0,0,0,0,0,0,0,0],
-                      [0,0,0,0,0,0,0,0,0],
-                      [0,0,0,0,0,0,0,0,0],
-                      [0,0,0,0,0,0,0,0,0]]
         self.box_length = math.sqrt(row_length)
+
+        # making the board
+        board = []
+        inside_board = []
+        for val in range(self.row_length):
+            inside_board.append(0)
+        for i in range(row_length):
+            board.append(inside_board)
+
+        self.board = board
 
     '''
 	create a sudoku board - initialize class variables and set up the 2D board
