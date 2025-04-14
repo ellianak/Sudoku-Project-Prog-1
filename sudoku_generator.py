@@ -78,43 +78,10 @@ class SudokuGenerator:
     '''
 
     def valid_in_row(self, row, num):
-        if row == 0:
-            for item in range(0, 9):
-                if self.board[item] == num:
-                    return False
-        if row == 1:
-            for item in row(9, 18):
-                if self.board[item] == num:
-                    return False
-        if row == 2:
-            for item in row(18, 27):
-                if self.board[item] == num:
-                    return False
-        if row == 3:
-            for item in row(27, 36):
-                if self.board[item] == num:
-                    return False
-        if row == 4:
-            for item in row(36, 45):
-                if self.board[item] == num:
-                    return False
-        if row == 5:
-            for item in row(45, 54):
-                if self.board[item] == num:
-                    return False
-        if row == 6:
-            for item in row(54, 63):
-                if self.board[item] == num:
-                    return False
-        if row == 7:
-            for item in row(63, 72):
-                if self.board[item] == num:
-                    return False
-        if row == 8:
-            for item in row(72, ):
-                if self.board[item] == num:
-                    return False
+        if num in self.board[row]:
+            return False
         return True
+
 
     '''
 	Determines if num is contained in the specified column (vertical) of the board
