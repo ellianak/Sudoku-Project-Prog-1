@@ -69,6 +69,64 @@ def draw_game_start(screen):
     screen.blit(medium_surface, medium_rectangle)
     screen.blit(hard_surface, hard_rectangle)
 
+#game end screens:
+#game over :( loser
+def game_over_screen(screen):
+    title_font = pygame.font.SysFont('Arial', 100)
+    button_font = pygame.font.SysFont('Arial', 40)
+
+    screen.fill("pink")
+
+    #initialize and draw title
+    title_surface = title_font.render("Game Over", 0, text_color)
+    title_rect = title_surface.get_rect(
+        center=(screen_width // 2, screen_height // 2 - 50)
+    )
+    screen.blit(title_surface, title_rect)
+
+    #initialize but text
+    restart_text = button_font.render("Restart", 0, text_color)
+
+    #button background box
+    restart_surface = pygame.Surface((restart_text.get_size()[0] + 20, restart_text.get_size()[1] + 20))
+    restart_surface.fill(line_color)
+    restart_surface.blit(restart_text, (10, 10))
+
+    #initialize boxes shapes
+    restart_rect = restart_surface.get_rect(
+        center=(screen_width // 2, screen_height // 2 + 100)
+    )
+
+    #draw restart button
+    screen.blit(restart_surface, restart_rect)
+
+#game won YIPPPEE
+def game_won(screen):
+    title_font = pygame.font.SysFont('Arial', 100)
+    button_font = pygame.font.SysFont('Arial', 40)
+    screen.fill("pink")
+    title_surface = title_font.render("Game Won", 0, text_color)
+    title_rect = title_surface.get_rect(
+        center=(screen_width // 2, screen_height // 2 - 50)
+    )
+    screen.blit(title_surface, title_rect)
+
+    # initialize but text
+    restart_text = button_font.render("Restart", 0, text_color)
+
+    # button background box
+    restart_surface = pygame.Surface((restart_text.get_size()[0] + 20, restart_text.get_size()[1] + 20))
+    restart_surface.fill(line_color)
+    restart_surface.blit(restart_text, (10, 10))
+
+    # initialize boxes shapes
+    restart_rect = restart_surface.get_rect(
+        center=(screen_width // 2, screen_height // 2 + 100)
+    )
+
+    # draw restart button
+    screen.blit(restart_surface, restart_rect)
+
     #wow okie lets do this so NEXT
     #this loop will keep user in start page until they take action then act accordinly
     while True:
@@ -89,4 +147,5 @@ pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Sudoku Board :)")
 
-draw_game_start(screen)
+# draw_game_start(screen)
+game_won(screen)
