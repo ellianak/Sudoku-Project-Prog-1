@@ -19,7 +19,7 @@ class SudokuGenerator:
         for val in range(self.row_length):
             inside_board.append(0)
         for i in range(row_length):
-            board.append(inside_board)
+            board.append(inside_board[:])
 
         self.board = board
 
@@ -235,7 +235,17 @@ class SudokuGenerator:
     '''
 
     def remove_cells(self):
-        pass
+        removed = 0
+        removed_positions = set()
+
+        while removed < self.removed_cells:
+            row = random.randint(0, self.row_length - 1)
+            col = random.randint(0, self.row_length - 1)
+
+            if (row, col) not in removed_positions and self.board[row][col] != 0:
+                self.board[row][col] = 0
+                removed_positions.add((row, col))
+                removed += 1
 
 
 '''
