@@ -7,6 +7,22 @@ screen_width = 600
 num_rows = 9
 text_color = (0,0,0) #"black"
 line_color = (128, 0, 128) #"purple"
+line_width = 15
+win_line_width = 15
+board_rows = 3
+board_cols = 3
+square_size = 200
+circle_radius = 60
+circle_width = 15
+cross_width = 25
+space = 55
+red = (255, 0, 0)
+bg_color = (255, 255, 245)
+circle_color = (155, 155, 155)
+cross_color = (66, 66, 66)
+chip_font = 400
+game_over_font = 40
+
 
 
 
