@@ -1,6 +1,6 @@
 import pygame, sys
 #Im starting to work on user interface stuff
-
+#pray pookie
 #definining variables that will be necessary!!!
 screen_height = 600
 screen_width = 600
