@@ -272,7 +272,3 @@ Board.draw(screen)
 # draw_game_start(screen)
 # game_over_screen(screen)
 # game_over_screen(screen)
-
-# testing a cell
-test_cell = Cell(8, 0, 0, screen)
-test_cell.draw()
