@@ -3,7 +3,7 @@ import pygame, sys
 #pray pookie
 #definining variables that will be necessary!!!
 screen_height = 600
-screen_width = 600
+screen_width = 540
 num_rows = 9
 text_color = (0,0,0) #"black"
 line_color = (128, 0, 128) #"purple"
@@ -202,11 +202,47 @@ def game_won(screen):
             pygame.display.update()
 
 
+#now more importantly we draw the sudoku board
+#pray for me (prayer hands emoji)
+
+class Board:
+    def __init__(self, width, height, screen, difficulty):
+        self.width = width
+        self.height = height
+        self.screen = screen
+        self.difficulty = difficulty
+    def draw(self):
+        for i in range(9):
+            pygame.draw.line(screen, 'white',(60+i*60,0),(60+i*60, 540))
+        for i in range(9):
+            pygame.draw.line(screen, 'white',(0,60+i*60),(540,60+i*60))
+        for i in range(4):
+            pygame.draw.line(screen, 'white', (0, i*180), (540, i*180), 5)
+        for i in range(4):
+            pygame.draw.line(screen, 'white', (i*180, 0), (i*180,540), 5)
+
+        while True:
+            for event in pygame.event.get():  # quits program if they exit out window
+                if event.type == pygame.QUIT:
+                    sys.exit()
+                # if event.type == pygame.MOUSEBUTTONDOWN:
+                #     if restart_rect.collidepoint(event.pos):
+                #         return  # need to make specified action so that we know how many boxes left open
+                    # elif medium_rectangle.collidepoint(event.pos):
+                    #     return #need to make specified action so that we know how many boxes left open
+                    # elif hard_rectangle.collidepoint(event.pos):
+                    #     return #need to make specified action so that we know how many boxes left open
+                pygame.display.update()
+
+
+
+
 pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Sudoku Board :)")
 
+Board.draw(screen)
 # draw_game_start(screen)
 # draw_game_start(screen)
-# # game_over_screen(screen)
+# game_over_screen(screen)
 # game_over_screen(screen)
