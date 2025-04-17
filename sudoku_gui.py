@@ -1,7 +1,12 @@
 import pygame, sys
+from sudoku_generator import *
 #Im starting to work on user interface stuff
 #pray pookie
 #definining variables that will be necessary!!!
+
+# cells are 60x60
+# screen size is 540x600
+
 screen_height = 600
 screen_width = 540
 num_rows = 9
@@ -234,7 +239,28 @@ class Board:
                     #     return #need to make specified action so that we know how many boxes left open
                 pygame.display.update()
 
+class Cell:
+    def __init__(self, value, row, col, screen):
+        self.sketched_value = None
+        self.value = value
+        self.row = row
+        self.col = col
+        self.screen = screen
 
+    def set_cell_value(self, value):
+        self.value = value
+
+    def set_sketched_value(self, value):
+        self.sketched_value = value
+
+    def draw(self):
+        x = (self.row*60) + 30
+        y = (self.col*60) + 30
+        cell_font = pygame.font.SysFont('Arial', 20)
+        cell_write = cell_font.render(str(self.value), 0, "white")
+        # screen.blit(cell_write, (x, y))
+        # make the number a rectangle, set the top left of the rectangle to the top left of the cell (which are 60x60 pixels big)
+        screen.blit(cell_write, cell_write.get_rect(center=(x, y)))
 
 
 pygame.init()
@@ -246,3 +272,7 @@ Board.draw(screen)
 # draw_game_start(screen)
 # game_over_screen(screen)
 # game_over_screen(screen)
+
+# testing a cell
+test_cell = Cell(8, 0, 0, screen)
+test_cell.draw()
