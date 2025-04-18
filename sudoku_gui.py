@@ -254,13 +254,19 @@ class Cell:
         self.sketched_value = value
 
     def draw(self):
-        x = (self.row*60) + 30
-        y = (self.col*60) + 30
+        x = (self.col * 60) + 30
+        y = (self.row*60) + 30
+
+        #creates the font
         cell_font = pygame.font.SysFont('Arial', 20)
-        cell_write = cell_font.render(str(self.value), 0, "white")
+
+        if sell.sketched_value:
+            cell_write = cell_font.render(str(self.sketched_value), True, "gray") #gray color for sketched value
+        else:
+            cell_write = cell_font.render(str(self.value), True, "white") # white for the actually true value
         # screen.blit(cell_write, (x, y))
         # make the number a rectangle, set the top left of the rectangle to the top left of the cell (which are 60x60 pixels big)
-        screen.blit(cell_write, cell_write.get_rect(center=(x, y)))
+        self.screen.blit(cell_write, cell_write.get_rect(center=(x, y)))
 
 
 pygame.init()
