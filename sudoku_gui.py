@@ -176,20 +176,20 @@ def game_won(screen):
     screen.blit(title_surface, title_rect)
 
     # initialize but text
-    restart_text = button_font.render("Restart", 0, text_color)
+    exit_text = button_font.render("Exit", 0, text_color)
 
     # button background box
-    restart_surface = pygame.Surface((restart_text.get_size()[0] + 20, restart_text.get_size()[1] + 20))
-    restart_surface.fill(line_color)
-    restart_surface.blit(restart_text, (10, 10))
+    exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
+    exit_surface.fill(line_color)
+    exit_surface.blit(exit_text, (10, 10))
 
     # initialize boxes shapes
-    restart_rect = restart_surface.get_rect(
+    restart_rect = exit_surface.get_rect(
         center=(screen_width // 2, screen_height // 2 + 100)
     )
 
     # draw restart button
-    screen.blit(restart_surface, restart_rect)
+    screen.blit(exit_surface, restart_rect)
 
     #wow okie lets do this so NEXT
     #this loop will keep user in start page until they take action then act accordinly
@@ -225,7 +225,34 @@ class Board:
             pygame.draw.line(screen, 'white', (0, i*180), (540, i*180), 5)
         for i in range(4):
             pygame.draw.line(screen, 'white', (i*180, 0), (i*180,540), 5)
-
+        button_font = pygame.font.SysFont('Arial', 30)
+        #exit stuff
+        exit_text = button_font.render("Exit", 0, 'black')
+        exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
+        exit_surface.fill('white')
+        exit_surface.blit(exit_text, (10, 10))
+        exit_rect = exit_surface.get_rect(
+            center=(1* screen_width // 4, screen_height // 2 + 275)
+        )
+        screen.blit(exit_surface, exit_rect)
+        #restart stuff:
+        exit_text = button_font.render("restart", 0, 'black')
+        exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
+        exit_surface.fill('white')
+        exit_surface.blit(exit_text, (10, 10))
+        exit_rect = exit_surface.get_rect(
+            center=(2* screen_width // 4, screen_height // 2 + 275)
+        )
+        screen.blit(exit_surface, exit_rect)
+        #reset stuff
+        exit_text = button_font.render("restart", 0, 'black')
+        exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
+        exit_surface.fill('white')
+        exit_surface.blit(exit_text, (10, 10))
+        exit_rect = exit_surface.get_rect(
+            center=(3*screen_width // 4, screen_height // 2 + 275)
+        )
+        screen.blit(exit_surface, exit_rect)
         while True:
             for event in pygame.event.get():  # quits program if they exit out window
                 if event.type == pygame.QUIT:
@@ -278,3 +305,4 @@ Board.draw(screen)
 # draw_game_start(screen)
 # game_over_screen(screen)
 # game_over_screen(screen)
+# game_won(screen)
