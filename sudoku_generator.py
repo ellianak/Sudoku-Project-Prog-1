@@ -8,20 +8,28 @@ https://www.geeksforgeeks.org/program-sudoku-generator/
 
 
 class SudokuGenerator:
-    def __init__(self, row_length, removed_cells):
-        self.row_length = row_length
-        self.removed_cells = removed_cells
-        self.box_length = math.sqrt(row_length)
+    class SudokuGenerator:
+        def __init__(self, row_length, removed_cells):
+            self.row_length = row_length
+            self.removed_cells = removed_cells
+            self.box_length = int(math.sqrt(row_length))
 
-        # making the board
-        board = []
-        inside_board = []
-        for val in range(self.row_length):
-            inside_board.append(0)
-        for i in range(row_length):
-            board.append(inside_board[:])
-
-        self.board = board
+            # Initialize the board as a 2D array of zeros
+            self.board = [[0 for _ in range(row_length)] for _ in range(row_length)]
+    # def __init__(self, row_length, removed_cells):
+    #     self.row_length = row_length
+    #     self.removed_cells = removed_cells
+    #     self.box_length = int(math.sqrt(row_length))
+    #
+    #     # making the board
+    #     board = []
+    #     inside_board = []
+    #     for val in range(self.row_length):
+    #         inside_board.append(0)
+    #     for i in range(row_length):
+    #         board.append(inside_board[:])
+    #
+    #     self.board = board
 
     '''
 	create a sudoku board - initialize class variables and set up the 2D board
@@ -55,16 +63,20 @@ class SudokuGenerator:
 	Parameters: None
 	Return: None
     '''
-
+# before it wasnt printing anything, so I think now it will print the board row by row
     def print_board(self):
-        count = 1
-        new_list = []
-        for i in range(len(self.board)):
-            new_list.append(self.board[i])
-            if count == 9:
-                count = 1
-                continue
-            count += 1
+        for row in self.board:
+            print(" ".join(str(num) if num != 0 else '.' for num in row))
+
+    # def print_board(self):
+    #     count = 1
+    #     new_list = []
+    #     for i in range(len(self.board)):
+    #         new_list.append(self.board[i])
+    #         if count == 9:
+    #             count = 1
+    #             continue
+    #         count += 1
 
     '''
 	Determines if num is contained in the specified row (horizontal) of the board
@@ -78,9 +90,10 @@ class SudokuGenerator:
     '''
 
     def valid_in_row(self, row, num):
-        if num in self.board[row]:
-            return False
-        return True
+        return num not in self.board[row]
+        # if num in self.board[row]:
+        #     return False
+        # return True
 
 
     '''
@@ -95,10 +108,11 @@ class SudokuGenerator:
     '''
 
     def valid_in_col(self, col, num):
-        for row in range(self.row_length):  # checks whether a given num is valid in a specific column
-            if self.board[row][col] == num:
-                return False
-        return True
+        return all(self.board[row][col] != num for row in range(self.row_length))
+        # for row in range(self.row_length):  # checks whether a given num is valid in a specific column
+        #     if self.board[row][col] == num:
+        #         return False
+        # return True
 
     '''
 	Determines if num is contained in the 3x3 box specified on the board
@@ -114,11 +128,16 @@ class SudokuGenerator:
     '''
 
     def valid_in_box(self, row_start, col_start, num):
-        for r in range(row_start, row_start+3):
-            for c in range(col_start, col_start+3):
-                if self.board[r][c] == num:
+        for i in range(self.box_length):
+            for j in range(self.box_length):
+                if self.board[box_start_row + i][box_start_col + j] == num:
                     return False
         return True
+        # for r in range(row_start, row_start+3):
+        #     for c in range(col_start, col_start+3):
+        #         if self.board[r][c] == num:
+        #             return False
+        # return True
 
     '''
     Determines if it is valid to enter num at (row, col) in the board
@@ -236,6 +255,7 @@ class SudokuGenerator:
 
     def remove_cells(self):
         removed = 0
+        total_cells = self.row_length * self.row_length
         removed_positions = set()
 
         while removed < self.removed_cells:
@@ -246,7 +266,6 @@ class SudokuGenerator:
                 self.board[row][col] = 0
                 removed_positions.add((row, col))
                 removed += 1
-
 
 '''
 DO NOT CHANGE
