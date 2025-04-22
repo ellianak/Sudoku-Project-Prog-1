@@ -1,5 +1,5 @@
 import pygame, sys
-from sudoku_generator import *
+from sudoku_generator import SudokuGenerator
 #Im starting to work on user interface stuff
 #pray pookie
 #definining variables that will be necessary!!!
@@ -229,6 +229,11 @@ class Cell:
     def set_sketched_value(self, value):
         self.sketched_value = value
 
+        #clears a cell, adds flexibility if you wanna reset a cell during gameplay
+    def clear(self):
+        self.value = 0
+        self.sketched_value = None
+
     def draw(self):
         x = (self.col * 60) + 30
         y = (self.row*60) + 30
@@ -239,10 +244,16 @@ class Cell:
         if self.sketched_value:
             cell_write = cell_font.render(str(self.sketched_value), True, "gray") #gray color for sketched value
         else:
-            cell_write = cell_font.render(str(self.value), True, "white") # white for the actually true value
+            if self.value != 0:
+                cell_write = cell_font.render(str(self.value), True, "white")
+            else:
+                return
+            # cell_write = cell_font.render(str(self.value), True, "white") # white for the actually true value
         # screen.blit(cell_write, (x, y))
         # make the number a rectangle, set the top left of the rectangle to the top left of the cell (which are 60x60 pixels big)
         self.screen.blit(cell_write, cell_write.get_rect(center=(x, y)))
+
+        pygame.draw.rect(self.screen, "white", (self.col * 60, self.row * 60, 60, 60), 1)
 
 class Board:
     def __init__(self, width, height, screen, difficulty):
@@ -250,6 +261,16 @@ class Board:
         self.height = height
         self.screen = screen
         self.difficulty = difficulty
+        """This code might make sense, but rn im about to leave, and dont wanna make more errors :("""
+        # self.cells = [[None for _ in range(9)] for _ in range(9)] # a 9x9 grid of cells
+        # self.selected = None   # stores the currently selected cell (row, col)
+
+        #This initializes the 81 cells in the coard (implementing cell class for the structure to be better
+        # for row in range(9):
+        #     for col in range(9):
+        #         self.cells[row][col] = Cell(row, col)
+
+
     def draw(self):
         for i in range(9):
             pygame.draw.line(self.screen, 'white',(60+i*60,0),(60+i*60, 540))
@@ -319,9 +340,9 @@ def main():
     screen = pygame.display.set_mode((screen_width, screen_height))
     board = Board(600, 600, screen, "Easy")
     pygame.display.set_caption("Sudoku Board :)")
-    # draw_game_start(screen)
+    draw_game_start(screen)
     # while True:
     #     board.draw()
-    game_won(screen)
+    # game_won(screen)
 
 main()
