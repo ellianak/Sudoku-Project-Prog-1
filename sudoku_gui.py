@@ -1,5 +1,5 @@
 import pygame, sys
-from sudoku_generator import SudokuGenerator
+from sudoku_generator import *
 #Im starting to work on user interface stuff
 #pray pookie
 #definining variables that will be necessary!!!
@@ -238,9 +238,27 @@ class Board:
         self.height = height
         self.screen = screen
         self.difficulty = difficulty
+
+        if self.difficulty == "easy":
+            remove = 30
+        elif self.difficulty == "medium":
+            remove = 40
+        else:
+            remove = 50
+
+        self.board = generate_sudoku(9, remove)
+        self.og_board = self.board.copy()
+
+        # makes a list of instances of the Cell class, these are what clear, sketch, and place_number should use
+        self.cells = []
+        for row in self.board.board:
+            for col in self.board.board[row]:
+                self.cells.append(Cell(self.board.board[row][col], row, col, self.screen))
+
         """This code might make sense, but rn im about to leave, and dont wanna make more errors :("""
         # self.cells = [[None for _ in range(9)] for _ in range(9)] # a 9x9 grid of cells
         # self.selected = None   # stores the currently selected cell (row, col)
+
 
         #This initializes the 81 cells in the coard (implementing cell class for the structure to be better
         # for row in range(9):
@@ -292,10 +310,11 @@ class Board:
 
     def select(self, row, col):
         self.selected = (row, col) # marks the cell as a selected cell
+        # this function should also highlight the cell red. Elyse this is you
 
     """Returns the tuple of the cell that's clicked based on (X,Y)
            Cordinates"""
-    def click(self, row, col):
+    def click(self, x, y):
         if x < 0 or x > 540 or y < 0 or y > 540:
             return None
         row = y // 60
@@ -306,23 +325,30 @@ class Board:
     def clear(self):
         if self.selected:
             row, col = self.selected
-            if self.cells[row][col].user_set:
+            if self.cells[row][col] != self.og_board[row][col]:
                 self.cells[row][col].clear()
+
 
     def sketch(self, value):
         if self.selected:
             row, col = self.selected
-            self.cells[row][col].sketch(value)
+            if self.cells[row][col] != self.og_board[row][col]:
+                self.cells[row][col].draw()
+
 
     def place_number(self, value):
         if self.selected:
             row, col = self.selected
-            self.cells[row][col].place(value)
+            if self.board.board[row][col] != self.og_board[row][col]:
+                self.board[row][col] = value
 
     def reset_to_original(self):
-        for row in range(9):
-            for col in range(9):
-                self.cells[row][col].reset()
+        self.board.board = self.og_board
+        for row in self.board.board:
+            for col in self.board.board[row]:
+                self.cells = []
+                self.cells.append(Cell(self.board.board[row][col], row, col, self.screen))
+
 
     # def is_full(self):
     #

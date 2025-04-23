@@ -10,12 +10,12 @@ https://www.geeksforgeeks.org/program-sudoku-generator/
 
 class SudokuGenerator:
     def __init__(self, row_length, removed_cells):
-            self.row_length = row_length
-            self.removed_cells = removed_cells
-            self.box_length = int(math.sqrt(row_length))
+        self.row_length = row_length
+        self.removed_cells = removed_cells
+        self.box_length = int(math.sqrt(row_length))
 
             # Initialize the board as a 2D array of zeros
-            self.board = [[0 for _ in range(row_length)] for _ in range(row_length)]
+        self.board = [[0 for _ in range(row_length)] for _ in range(row_length)]
     # def __init__(self, row_length, removed_cells):
     #     self.row_length = row_length
     #     self.removed_cells = removed_cells
