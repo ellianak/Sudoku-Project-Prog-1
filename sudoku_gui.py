@@ -74,36 +74,34 @@ def draw_game_start(screen):
     screen.blit(medium_surface, medium_rectangle)
     screen.blit(hard_surface, hard_rectangle)
 
-    while True:
-        for event in pygame.event.get(): #quits program if they exit out window
-            if event.type == pygame.QUIT:
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if easy_rectangle.collidepoint(event.pos):
-                    generate_sudoku(81, 30)  #do i put backtracking here?
-                    Board(9,9,screen,easy)
-                    Board.draw(screen)
-                elif medium_rectangle.collidepoint(event.pos):
-                    generate_sudoku(81,40)
-                    Board(9,9,screen,medium)
-                    Board.draw(screen)
-                elif hard_rectangle.collidepoint(event.pos):
-                    generate_sudoku(81, 50)
-                    Board(9,9,screen,hard)
-                    Board.draw(screen)
-            while event.type == pygame.MOUSEBUTTONDOWN:
-                if restart_rect.collidepoint(event.pos): #restart button must be initialized outside of game_over
-                    break
-                elif reset_rect.collidepoint(event.pos):#add when reset button is made
-                    #connected to Board class
-                    Board.draw(screen)  #not sure about this
-                elif exit_rect.collidepoint(event.pos):
-                    sys.exit()
-                #elif a cell is pressed:
-                    # call is_valid()  #check what False means in context
-                    num = int(input("Enter number: "))
-                    #use Cell class to fill in number and value
-            pygame.display.update()
+    # while True:
+    #     for event in pygame.event.get(): #quits program if they exit out window
+    #         if event.type == pygame.QUIT:
+    #             sys.exit()
+    #         if event.type == pygame.MOUSEBUTTONDOWN:
+    #             if easy_rectangle.collidepoint(event.pos):
+    #                 generate_sudoku(81, 30)  #do i put backtracking here?
+    #                 Board(9,9,screen,easy)
+    #                 Board.draw(screen)
+    #             elif medium_rectangle.collidepoint(event.pos):
+    #                 generate_sudoku(81,40)
+    #                 Board(9,9,screen,medium)
+    #                 Board.draw(screen)
+    #             elif hard_rectangle.collidepoint(event.pos):
+    #                 generate_sudoku(81, 50)
+    #                 Board(9,9,screen,hard)
+    #                 Board.draw(screen)
+    #         while event.type == pygame.MOUSEBUTTONDOWN:
+    #             if restart_rect.collidepoint(event.pos): #restart button must be initialized outside of game_over
+    #                 break
+    #             elif reset_rect.collidepoint(event.pos):#add when reset button is made
+    #                 #connected to Board class
+    #                 Board.draw(screen)  #not sure about this
+    #             elif exit_rect.collidepoint(event.pos):
+    #                 sys.exit()
+    #             #elif a cell is pressed:
+    #                 # call is_valid()  #check what False means in context
+    #         pygame.display.update()
 
 #game end screens:
 #game over :( loser
@@ -136,13 +134,7 @@ def game_over_screen(screen):
         #
         # #draw restart button
         screen.blit(restart_surface, restart_rect)
-        # while True:
-        #     for event in pygame.event.get(): #quits program if they exit out window
-        #         if event.type == pygame.QUIT:
-        #             sys.exit()
-        #         if event.type == pygame.MOUSEBUTTONDOWN:
-        #             if restart_rect.collidepoint(event.pos):
-        #                 return
+
         title_font = pygame.font.SysFont('Arial', 100)
         button_font = pygame.font.SysFont('Arial', 40)
         screen.fill("pink")
@@ -198,21 +190,6 @@ def game_won(screen):
         screen.blit(exit_surface, restart_rect)
         pygame.display.update()
 
-    #wow okie lets do this so NEXT
-    #this loop will keep user in start page until they take action then act accordinly
-    # while True:
-    #     for event in pygame.event.get(): #quits program if they exit out window
-    #         if event.type == pygame.QUIT:
-    #             sys.exit()
-    #         if event.type == pygame.MOUSEBUTTONDOWN:
-    #             if restart_rect.collidepoint(event.pos):
-    #                 return #need to make specified action so that we know how many boxes left open
-    #             # elif medium_rectangle.collidepoint(event.pos):
-    #             #     return #need to make specified action so that we know how many boxes left open
-    #             # elif hard_rectangle.collidepoint(event.pos):
-    #             #     return #need to make specified action so that we know how many boxes left open
-    #
-
 
 
 class Cell:
@@ -236,7 +213,7 @@ class Cell:
 
     def draw(self):
         x = (self.col * 60) + 30
-        y = (self.row*60) + 30
+        y = (self.row * 60) + 30
 
         #creates the font
         cell_font = pygame.font.SysFont('Arial', 20)
@@ -354,13 +331,13 @@ class Board:
     # def find_empty(self):
     #
     # def check_board(self):
-    #
-    #
+
+
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode((screen_width, screen_height))
-    board = Board(600, 600, screen, "Easy")
+    board = Board(540, 600, screen, "Easy")
     pygame.display.set_caption("Sudoku Board :)")
     draw_game_start(screen)
     # while True:
