@@ -7,9 +7,9 @@ https://www.geeksforgeeks.org/program-sudoku-generator/
 """
 
 
+
 class SudokuGenerator:
-    class SudokuGenerator:
-        def __init__(self, row_length, removed_cells):
+    def __init__(self, row_length, removed_cells):
             self.row_length = row_length
             self.removed_cells = removed_cells
             self.box_length = int(math.sqrt(row_length))
@@ -130,7 +130,7 @@ class SudokuGenerator:
     def valid_in_box(self, row_start, col_start, num):
         for i in range(self.box_length):
             for j in range(self.box_length):
-                if self.board[box_start_row + i][box_start_col + j] == num:
+                if self.board[row_start + i][col_start + j] == num:
                     return False
         return True
         # for r in range(row_start, row_start+3):

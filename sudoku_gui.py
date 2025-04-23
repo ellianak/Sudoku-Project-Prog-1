@@ -313,18 +313,40 @@ class Board:
 
         pygame.display.update()
 
-    # def select(self, row, col):
-    #
-    # def click(self, row, col):
-    #
-    # def clear(self):
-    #
-    # def sketch(self, value):
-    #
-    # def place_number(self, value):
-    #
-    # def reset_to_original(self):
-    #
+    def select(self, row, col):
+        self.selected = (row, col) # marks the cell as a selected cell
+
+    """Returns the tuple of the cell that's clicked based on (X,Y)
+           Cordinates"""
+    def click(self, row, col):
+        if x < 0 or x > 540 or y < 0 or y > 540:
+            return None
+        row = y // 60
+        col = x // 60
+        return row, col
+
+
+    def clear(self):
+        if self.selected:
+            row, col = self.selected
+            if self.cells[row][col].user_set:
+                self.cells[row][col].clear()
+
+    def sketch(self, value):
+        if self.selected:
+            row, col = self.selected
+            self.cells[row][col].sketch(value)
+
+    def place_number(self, value):
+        if self.selected:
+            row, col = self.selected
+            self.cells[row][col].place(value)
+
+    def reset_to_original(self):
+        for row in range(9):
+            for col in range(9):
+                self.cells[row][col].reset()
+
     # def is_full(self):
     #
     # def update_board(self):
