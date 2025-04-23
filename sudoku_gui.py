@@ -349,6 +349,10 @@ class Board:
                 self.cells = []
                 self.cells.append(Cell(self.board.board[row][col], row, col, self.screen))
 
+    def is_full(self):
+        if 0 in self.board.board:
+            return True
+        return False
 
     # def is_full(self):
     #
