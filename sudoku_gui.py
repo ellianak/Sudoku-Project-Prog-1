@@ -354,14 +354,48 @@ class Board:
             return True
         return False
 
-    # def is_full(self):
-    #
-    # def update_board(self):
-    #
-    # def find_empty(self):
-    #
-    # def check_board(self):
+    def is_full(self):
+        for cell in self.cells:
+            if cell.value == 0:
+                return False
+        return True
 
+    def update_board(self):
+        for cell in self.cells:
+            self.board.board[cell.row][cell.col] = cell.value
+    def find_empty(self):
+        for cell in self.cells:
+            if cell.value == 0:
+                return (cell.row, cell.col)
+        return None
+    def check_board(self):
+        self.update_board()
+        board = self.board.board
+
+        def is_valid(row, col, num):
+            # Check row
+            for i in range(9):
+                if board[row][i] == num and i != col:
+                    return False
+            # Check column
+            for i in range(9):
+                if board[i][col] == num and i != row:
+                    return False
+            # Check 3x3 box
+            box_row = (row // 3) * 3
+            box_col = (col // 3) * 3
+            for i in range(box_row, box_row + 3):
+                for j in range(box_col, box_col + 3):
+                    if board[i][j] == num and (i, j) != (row, col):
+                        return False
+            return True
+
+        for row in range(9):
+            for col in range(9):
+                num = board[row][col]
+                if num == 0 or not is_valid(row, col, num):
+                    return False
+        return True
 
 
 def main():
