@@ -336,11 +336,11 @@ class Board:
     def place_number(self, value):
         if self.selected:
             row, col = self.selected
-            if self.board.board[row][col] != self.og_board[row][col]:
+            if self.board[row][col] != self.og_board[row][col]:
                 self.board[row][col] = value
 
     def reset_to_original(self):
-        self.board.board = self.og_board
+        self.board = self.og_board
         # for row in self.board:
         #     for col in self.board[row]:
         #         self.cells = []
@@ -381,7 +381,7 @@ def main():
         draw_game_start(screen)
         difficulty = draw_game_start(screen)
         game_run = Board(9,9,screen,difficulty)
-        screen.fill(bg_color)
+        screen.fill("black")
         game_run.draw()
 
     #     board.draw()
