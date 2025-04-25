@@ -296,7 +296,7 @@ class Board:
             )
             self.screen.blit(exit_surface, exit_rect)
             #reset stuff
-            exit_text = button_font.render("Return", 0, 'black')
+            exit_text = button_font.render("Reset", 0, 'black')
             exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
             exit_surface.fill('white')
             exit_surface.blit(exit_text, (10, 10))
@@ -394,43 +394,54 @@ def main():
     game_over = False
 
     box = Boxy(60, 60, 25,(255,0,0), 25)
+    key_pressed = pygame.key.get_pressed()
+
+    if key_pressed[pygame.K_UP]:
+        box.up()
+    if key_pressed[pygame.K_DOWN]:
+        box.down()
+    if key_pressed[pygame.K_LEFT]:
+        box.left()
+    if key_pressed[pygame.K_RIGHT]:
+        box.right()
+
+    draw_game_start(screen)
+    difficulty = draw_game_start(screen)
+    game_run = Board(9, 9, screen, difficulty)
+    screen.fill("black")
+    # key_pressed = pygame.key.get_pressed()
+    #
+    # if key_pressed[pygame.K_UP]:
+    #     box.up()
+    # if key_pressed[pygame.K_DOWN]:
+    #     box.down()
+    # if key_pressed[pygame.K_LEFT]:
+    #     box.left()
+    # if key_pressed[pygame.K_RIGHT]:
+    #     box.right()
+
+    box.render()
 
     while True:
+        screen.fill("black")
+        game_run.draw()
+
         for event in pygame.event.get(): #quits program if they exit out window
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN and not game_over:
+                row, col = game_run.click(event.pos[0], event.pos[1])
+                if game_run.og_board[row][col] == 0:
+                    game_run.select(row, col)
+                    if event.type == pygame.KEYDOWN:
+                        if 49 <= event.key <= 57:
+                            num = event.key - 48
+                            print(num)
+                            #game_run.sketch(num)
 
-        key_pressed = pygame.key.get_pressed()
 
-        if key_pressed[pygame.K_UP]:
-            box.up()
-        if key_pressed[pygame.K_DOWN]:
-            box.down()
-        if key_pressed[pygame.K_LEFT]:
-            box.left()
-        if key_pressed[pygame.K_RIGHT]:
-            box.right()
-
-        draw_game_start(screen)
-        difficulty = draw_game_start(screen)
-        game_run = Board(9,9,screen,difficulty)
-        screen.fill("black")
-        # key_pressed = pygame.key.get_pressed()
-        #
-        # if key_pressed[pygame.K_UP]:
-        #     box.up()
-        # if key_pressed[pygame.K_DOWN]:
-        #     box.down()
-        # if key_pressed[pygame.K_LEFT]:
-        #     box.left()
-        # if key_pressed[pygame.K_RIGHT]:
-        #     box.right()
-
-        box.render()
-        game_run.draw()
-
-        pygame.display.flip()
+        pygame.display.update()
         # board.draw()
     # game_won(screen)
 # board.draw()
