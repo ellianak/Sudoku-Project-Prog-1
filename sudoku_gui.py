@@ -243,7 +243,7 @@ class Board:
 
         self.board = generate_sudoku(9, remove)
         self.og_board = self.board.copy()
-        self.instance = SudokuGenerator(9, remove)
+        # self.instance = SudokuGenerator(9, remove)
 
         # makes a list of instances of the Cell class, these are what clear, sketch, and place_number should use
         self.cells = []
@@ -263,49 +263,49 @@ class Board:
 
 
     def draw(self):
-        while True:
-            for i in range(9):
-                pygame.draw.line(self.screen, 'white',(60+i*60,0),(60+i*60, 540))
-            for i in range(9):
-                pygame.draw.line(self.screen, 'white',(0,60+i*60),(540,60+i*60))
-            for i in range(4):
-                pygame.draw.line(self.screen, 'white', (0, i*180), (540, i*180), 5)
-            for i in range(4):
-                pygame.draw.line(self.screen, 'white', (i*180, 0), (i*180,540), 5)
+        #while True:
+        for i in range(9):
+            pygame.draw.line(self.screen, 'white',(60+i*60,0),(60+i*60, 540))
+        for i in range(9):
+            pygame.draw.line(self.screen, 'white',(0,60+i*60),(540,60+i*60))
+        for i in range(4):
+            pygame.draw.line(self.screen, 'white', (0, i*180), (540, i*180), 5)
+        for i in range(4):
+            pygame.draw.line(self.screen, 'white', (i*180, 0), (i*180,540), 5)
 # draws cell values
-            for cell in self.cells:
-                cell.draw()
+        for cell in self.cells:
+            cell.draw()
 
-            button_font = pygame.font.SysFont('Arial', 30)
-            #exit stuff
-            exit_text = button_font.render("Exit", 0, 'black')
-            exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
-            exit_surface.fill('white')
-            exit_surface.blit(exit_text, (10, 10))
-            exit_rect = exit_surface.get_rect(
-                center=(1* screen_width // 4, screen_height // 2 + 275)
-            )
-            self.screen.blit(exit_surface, exit_rect)
-            #restart stuff:
-            exit_text = button_font.render("Restart", 0, 'black')
-            exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
-            exit_surface.fill('white')
-            exit_surface.blit(exit_text, (10, 10))
-            exit_rect = exit_surface.get_rect(
-                center=(2* screen_width // 4, screen_height // 2 + 275)
-            )
-            self.screen.blit(exit_surface, exit_rect)
-            #reset stuff
-            exit_text = button_font.render("Reset", 0, 'black')
-            exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
-            exit_surface.fill('white')
-            exit_surface.blit(exit_text, (10, 10))
-            exit_rect = exit_surface.get_rect(
-                center=(3*screen_width // 4, screen_height // 2 + 275)
-            )
-            self.screen.blit(exit_surface, exit_rect)
+        button_font = pygame.font.SysFont('Arial', 30)
+        #exit stuff
+        exit_text = button_font.render("Exit", 0, 'black')
+        exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
+        exit_surface.fill('white')
+        exit_surface.blit(exit_text, (10, 10))
+        exit_rect = exit_surface.get_rect(
+            center=(1* screen_width // 4, screen_height // 2 + 275)
+        )
+        self.screen.blit(exit_surface, exit_rect)
+        #restart stuff:
+        exit_text = button_font.render("Restart", 0, 'black')
+        exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
+        exit_surface.fill('white')
+        exit_surface.blit(exit_text, (10, 10))
+        exit_rect = exit_surface.get_rect(
+            center=(2* screen_width // 4, screen_height // 2 + 275)
+        )
+        self.screen.blit(exit_surface, exit_rect)
+        #reset stuff
+        exit_text = button_font.render("Reset", 0, 'black')
+        exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
+        exit_surface.fill('white')
+        exit_surface.blit(exit_text, (10, 10))
+        exit_rect = exit_surface.get_rect(
+            center=(3*screen_width // 4, screen_height // 2 + 275)
+        )
+        self.screen.blit(exit_surface, exit_rect)
 
-            pygame.display.update()
+        #pygame.display.update()
 
     def select(self, row, col):
         self.selected = (row, col) # marks the cell as a selected cell
@@ -420,11 +420,10 @@ def main():
     # if key_pressed[pygame.K_RIGHT]:
     #     box.right()
 
-    box.render()
+    #box.render()
 
     while True:
-        screen.fill("black")
-        game_run.draw()
+
 
         for event in pygame.event.get(): #quits program if they exit out window
             if event.type == pygame.QUIT:
@@ -434,14 +433,19 @@ def main():
                 row, col = game_run.click(event.pos[0], event.pos[1])
                 if game_run.og_board[row][col] == 0:
                     game_run.select(row, col)
+                    # print(f"Selected square at {row} {col}")
                     if event.type == pygame.KEYDOWN:
+                        # print("Keydown detected")
                         if 49 <= event.key <= 57:
+                            # print(f"{event.key} is pressed")
                             num = event.key - 48
-                            print(num)
-                            #game_run.sketch(num)
-
-
-        pygame.display.update()
+                            # print(num)
+                            game_run.sketch(num)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w:
+                    screen.fill("black")
+                    game_run.draw()
+            pygame.display.update()
         # board.draw()
     # game_won(screen)
 # board.draw()
