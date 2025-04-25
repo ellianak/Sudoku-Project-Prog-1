@@ -363,6 +363,25 @@ class Board:
             return True
         return False
 
+class Boxy:
+    def __init__(self, x, y, speed, color, size):
+        self.x = x
+        self.y = y
+        self.speed = speed
+        self.color = color
+        self.size = size
+        self.screen = pygame.display.set_mode((screen_width, screen_height))
+    def render(self):
+        pygame.draw.rect(self.screen, self.color, (self.x, self.y, self.size, self.size))
+    def up(self):
+        self.y = self.y - self.speed
+    def down(self):
+        self.y = self.y + self.speed
+    def left(self):
+        self.x = self.x - self.speed
+    def right(self):
+        self.x = self.x + self.speed
+
 
 
 def main():
@@ -372,19 +391,45 @@ def main():
     screen.fill(bg_color)
     game_over = False
 
+    box = Boxy(60, 60, 25,(255,0,0), 25)
 
     while True:
         for event in pygame.event.get(): #quits program if they exit out window
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
+        key_pressed = pygame.key.get_pressed()
+
+        if key_pressed[pygame.K_UP]:
+            box.up()
+        if key_pressed[pygame.K_DOWN]:
+            box.down()
+        if key_pressed[pygame.K_LEFT]:
+            box.left()
+        if key_pressed[pygame.K_RIGHT]:
+            box.right()
+
         draw_game_start(screen)
         difficulty = draw_game_start(screen)
         game_run = Board(9,9,screen,difficulty)
         screen.fill("black")
+        # key_pressed = pygame.key.get_pressed()
+        #
+        # if key_pressed[pygame.K_UP]:
+        #     box.up()
+        # if key_pressed[pygame.K_DOWN]:
+        #     box.down()
+        # if key_pressed[pygame.K_LEFT]:
+        #     box.left()
+        # if key_pressed[pygame.K_RIGHT]:
+        #     box.right()
+
+        box.render()
         game_run.draw()
 
-    #     board.draw()
+        pygame.display.flip()
+        # board.draw()
     # game_won(screen)
-
+# board.draw()
 main()
