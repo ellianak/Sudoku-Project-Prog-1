@@ -433,3 +433,4 @@ def main():
     # game_won(screen)
 # board.draw()
 main()
+#bruh im so sick of this
