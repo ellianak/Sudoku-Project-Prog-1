@@ -263,7 +263,7 @@ class Board:
 
 
     def draw(self):
-        while True:
+        #while True:
             for i in range(9):
                 pygame.draw.line(self.screen, 'white',(60+i*60,0),(60+i*60, 540))
             for i in range(9):
@@ -364,13 +364,13 @@ class Board:
         return False
 #PUSHIT
 class Boxy:
-    def __init__(self, x, y, speed, color, size):
+    def __init__(self, x, y, speed, color, size, screen):
         self.x = x
         self.y = y
         self.speed = speed
         self.color = color
         self.size = size
-        self.screen = pygame.display.set_mode((screen_width, screen_height))
+        self.screen = screen
     def render(self):
         pygame.draw.rect(self.screen, self.color, (self.x, self.y, self.size, self.size))
     def up(self):
@@ -389,10 +389,10 @@ def main():
     screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption("Sudoku Board :)")
     screen.fill(bg_color)
-    game_over = False
 
-    box = Boxy(60, 60, 25,(255,0,0), 25)
 
+    box = Boxy(60, 60, 25,(255,0,0), 25, screen)
+    # clock = Boxy(60,60,5,(255,0,0),25)
     while True:
         for event in pygame.event.get(): #quits program if they exit out window
             if event.type == pygame.QUIT:
@@ -402,6 +402,7 @@ def main():
         key_pressed = pygame.key.get_pressed()
 
         if key_pressed[pygame.K_UP]:
+            print("up")
             box.up()
         if key_pressed[pygame.K_DOWN]:
             box.down()
@@ -409,11 +410,16 @@ def main():
             box.left()
         if key_pressed[pygame.K_RIGHT]:
             box.right()
-
         draw_game_start(screen)
         difficulty = draw_game_start(screen)
-        game_run = Board(9,9,screen,difficulty)
+        game_run = Board(9, 9, screen, difficulty)
         screen.fill("black")
+        box.render()
+        pygame.display.flip()
+        # draw_game_start(screen)
+        # difficulty = draw_game_start(screen)
+        # game_run = Board(9,9,screen,difficulty)
+
         # key_pressed = pygame.key.get_pressed()
         #
         # if key_pressed[pygame.K_UP]:
@@ -425,10 +431,10 @@ def main():
         # if key_pressed[pygame.K_RIGHT]:
         #     box.right()
 
-        box.render()
+        # box.render()
         game_run.draw()
 
-        pygame.display.flip()
+        # pygame.display.flip()
         # board.draw()
     # game_won(screen)
 # board.draw()
