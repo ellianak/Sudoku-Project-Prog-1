@@ -272,7 +272,9 @@ class Board:
                 pygame.draw.line(self.screen, 'white', (0, i*180), (540, i*180), 5)
             for i in range(4):
                 pygame.draw.line(self.screen, 'white', (i*180, 0), (i*180,540), 5)
-
+# draws cell values
+            for cell in self.cells:
+                cell.draw()
 
             button_font = pygame.font.SysFont('Arial', 30)
             #exit stuff
